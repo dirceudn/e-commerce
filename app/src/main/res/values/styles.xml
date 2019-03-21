@@ -8,4 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/colorAccent</item>
+        <item name="actionModeBackground">@color/colorActionMode</item>
+
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>
