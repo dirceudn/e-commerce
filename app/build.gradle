@@ -79,6 +79,8 @@ dependencies {
     implementation deps.anko.sdk
     implementation deps.anko.layout
 
+    implementation deps.navigation.runtime
+    implementation deps.navigation.fragment
     implementation deps.timber
 
     kapt deps.dagger.android_support_compiler

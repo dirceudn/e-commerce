@@ -53,6 +53,7 @@ versions.timber = "4.5.1"
 versions.work = "1.0.0-rc02"
 versions.anko = '0.10.8'
 
+
 def deps = [:]
 
 def support = [:]
@@ -91,6 +92,14 @@ retrofit.mock = "com.squareup.retrofit2:retrofit-mock:$versions.retrofit"
 retrofit.rxjava = "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
 deps.retrofit = retrofit
 deps.okhttp_logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${versions.okhttp_logging_interceptor}"
+
+def navigation = [:]
+navigation.runtime = "android.arch.navigation:navigation-runtime:$versions.navigation"
+navigation.runtime_ktx = "android.arch.navigation:navigation-runtime-ktx:$versions.navigation"
+navigation.fragment = "android.arch.navigation:navigation-fragment:$versions.navigation"
+navigation.fragment_ktx = "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
+navigation.safe_args_plugin = "android.arch.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
+deps.navigation = navigation
 
 def anko = [:]
 anko.commons =   "org.jetbrains.anko:anko-commons:$versions.anko"
@@ -167,13 +176,6 @@ work.firebase = "android.arch.work:work-firebase:$versions.work"
 work.runtime_ktx = "android.arch.work:work-runtime-ktx:$versions.work"
 deps.work = work
 
-def navigation = [:]
-navigation.runtime = "android.arch.navigation:navigation-runtime:$versions.navigation"
-navigation.runtime_ktx = "android.arch.navigation:navigation-runtime-ktx:$versions.navigation"
-navigation.fragment = "android.arch.navigation:navigation-fragment:$versions.navigation"
-navigation.fragment_ktx = "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
-navigation.safe_args_plugin = "android.arch.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
-deps.navigation = navigation
 
 ext.deps = deps
 
