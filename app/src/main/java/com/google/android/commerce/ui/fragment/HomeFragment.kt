@@ -59,7 +59,6 @@ class HomeFragment : Fragment(), ProductAdapterListener {
 
         fetchProducts()
 
-        // refresh the list of products
         refresh.setOnRefreshListener {
             fetchProducts()
         }
@@ -84,8 +83,6 @@ class HomeFragment : Fragment(), ProductAdapterListener {
     override fun onProductSelected(product: Product) {
         val basketItem = BasketItem(product = product)
         cartViewModel.addCartItem(basketItem)
-        Timber.d("PRODUCT")
-
     }
 
 }

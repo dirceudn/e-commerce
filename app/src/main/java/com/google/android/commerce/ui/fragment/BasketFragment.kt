@@ -2,20 +2,20 @@ package com.google.android.commerce.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.commerce.R
 import com.google.android.commerce.adapters.BaskItemAdapter
 import com.google.android.commerce.ui.view.BasketViewModel
-import com.google.android.commerce.ui.view.ProductViewModel
-import com.google.android.commerce.util.Constants
 import kotlinx.android.synthetic.main.fragment_basket.*
-import kotlinx.android.synthetic.main.fragment_home.*
+import java.text.NumberFormat
+import java.util.*
+
 
 class BasketFragment : Fragment() {
 
@@ -23,12 +23,14 @@ class BasketFragment : Fragment() {
     lateinit var cartAdapter: BaskItemAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         return inflater.inflate(R.layout.fragment_basket, container, false)
 
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
 
         cartAdapter = BaskItemAdapter()
         recycler_view_cart.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
@@ -49,5 +51,30 @@ class BasketFragment : Fragment() {
 
         cartAdapter.setProductsList(cartViewModel.getProducts())
 
+        val totalPrice = cartViewModel.getProducts()
+            .fold(0.toDouble()) { acc, cartItem -> acc + cartItem.quantity.times(cartItem.product.price!!.toDouble()) }
+
+        formatPrice(totalPrice)
+
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            android.R.id.home -> {
+                activity!!.onBackPressed()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+
+    }
+
+    private fun formatPrice(price: Double){
+        val n = NumberFormat.getCurrencyInstance(Locale.FRANCE)
+        val priceFormatted = n.format(price.div(100.0))
+        total_price.text =  priceFormatted
     }
 }
