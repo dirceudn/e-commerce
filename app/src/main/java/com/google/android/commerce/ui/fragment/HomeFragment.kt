@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -12,17 +11,22 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.commerce.R
 import com.google.android.commerce.adapters.ProductAdapter
+import com.google.android.commerce.data.model.BasketItem
 import com.google.android.commerce.data.model.Product
 import com.google.android.commerce.interfaces.ProductAdapterListener
+import com.google.android.commerce.ui.view.BasketViewModel
 import com.google.android.commerce.ui.view.ProductViewModel
 import com.google.android.commerce.util.Constants
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_home.*
+import timber.log.Timber
 
 class HomeFragment : Fragment(), ProductAdapterListener {
 
 
     lateinit var productViewModel: ProductViewModel
+    lateinit var cartViewModel: BasketViewModel
+
     lateinit var productAdapter: ProductAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,6 +53,8 @@ class HomeFragment : Fragment(), ProductAdapterListener {
     private fun attachData() {
 
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel::class.java)
+        cartViewModel = ViewModelProviders.of(this).get(BasketViewModel::class.java)
+
         productViewModel.isLoading.observe(this, Observer { value -> refresh.isRefreshing = value ?: false })
 
         fetchProducts()
@@ -58,9 +64,17 @@ class HomeFragment : Fragment(), ProductAdapterListener {
             fetchProducts()
         }
 
+        cartViewModel.fetchCarSize()
+
+        cartViewModel.carsize
+            .observe(viewLifecycleOwner, Observer { size ->
+                cart_size.text = size.toString()
+            })
+
+
     }
 
-    private fun fetchProducts(){
+    private fun fetchProducts() {
         productViewModel.getProducts(Constants.INSTANCE.PRODUCTS)
             .observe(viewLifecycleOwner, Observer { posts ->
                 productAdapter.setProductList(posts)
@@ -68,6 +82,9 @@ class HomeFragment : Fragment(), ProductAdapterListener {
     }
 
     override fun onProductSelected(product: Product) {
+        val basketItem = BasketItem(product = product)
+        cartViewModel.addCartItem(basketItem)
+        Timber.d("PRODUCT")
 
     }
 

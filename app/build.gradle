@@ -66,6 +66,7 @@ dependencies {
     implementation deps.retrofit.runtime
     implementation deps.retrofit.gson
     implementation deps.retrofit.rxjava
+    implementation deps.kotlin.rxkotlin
     implementation deps.glide.runtime
     implementation deps.glide.annotations
     implementation deps.glide.integration
@@ -78,6 +79,7 @@ dependencies {
     implementation deps.anko.commons
     implementation deps.anko.sdk
     implementation deps.anko.layout
+    implementation deps.paper.data
 
     implementation deps.navigation.runtime
     implementation deps.navigation.fragment

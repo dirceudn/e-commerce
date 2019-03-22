@@ -52,6 +52,8 @@ versions.support = "1.0.0"
 versions.timber = "4.5.1"
 versions.work = "1.0.0-rc02"
 versions.anko = '0.10.8'
+versions.rxkotlin = '2.0.3'
+versions.paperdb = '2.6'
 
 
 def deps = [:]
@@ -105,6 +107,10 @@ def anko = [:]
 anko.commons =   "org.jetbrains.anko:anko-commons:$versions.anko"
 anko.layout =  "org.jetbrains.anko:anko-appcompat-v7:$versions.anko"
 
+def paper = [:]
+paper.data = "io.paperdb:paperdb:$versions.paperdb"
+deps.paper = paper
+
 // Anko Layouts
 anko.sdk =  "org.jetbrains.anko:anko-sdk25:$versions.anko" //
 
@@ -141,6 +147,7 @@ kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
 kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
 kotlin.allopen = "org.jetbrains.kotlin:kotlin-allopen:$versions.kotlin"
+kotlin.rxkotlin = "io.reactivex.rxjava2:rxkotlin:$versions.rxkotlin"
 
 deps.kotlin = kotlin
 

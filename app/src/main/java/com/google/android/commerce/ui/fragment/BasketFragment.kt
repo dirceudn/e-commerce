@@ -34,6 +34,7 @@ class BasketFragment : Fragment() {
         recycler_view_cart.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
         recycler_view_cart.adapter = cartAdapter
 
+
         attachData()
     }
 
@@ -46,9 +47,7 @@ class BasketFragment : Fragment() {
 
     private fun fetchItems() {
 
-        cartViewModel.getProducts()
-            .observe(viewLifecycleOwner, Observer { items ->
-                cartAdapter.setProductsList(items)
-            })
+        cartAdapter.setProductsList(cartViewModel.getProducts())
+
     }
 }

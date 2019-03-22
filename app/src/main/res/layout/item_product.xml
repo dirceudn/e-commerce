@@ -5,6 +5,7 @@
 
     <data>
         <variable name="data" type="com.google.android.commerce.data.model.Product"/>
+        <variable name="listener" type="com.google.android.commerce.interfaces.ProductAdapterListener"/>
     </data>
     <androidx.cardview.widget.CardView
             style="@style/CardView.Light"
@@ -70,7 +71,9 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginStart="16dp"
                     android:minWidth="0dp"
-                    android:background="@drawable/ic_buy"
+                    android:onClick="@{() -> listener.onProductSelected(data)}"
+                    android:src="@drawable/ic_buy"
+                    android:background="@drawable/selector"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
                     android:textColor="#DE000000"

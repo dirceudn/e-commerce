@@ -45,6 +45,7 @@ class ProductAdapter(listener: ProductAdapterListener) : RecyclerView.Adapter<Pr
 
         fun bind(data: Any, productListener: ProductAdapterListener?) {
             binding.setVariable(BR.data, data)
+            binding.setVariable(BR.listener, productListener)
             binding.executePendingBindings()
 
             binding.root.setOnClickListener {
