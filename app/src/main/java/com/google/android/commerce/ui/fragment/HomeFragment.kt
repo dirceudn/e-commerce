@@ -65,7 +65,7 @@ class HomeFragment : Fragment(), ProductAdapterListener {
 
         cartViewModel.fetchCarSize()
 
-        cartViewModel.carsize
+        cartViewModel.cartsize
             .observe(viewLifecycleOwner, Observer { size ->
                 cart_size.text = size.toString()
             })

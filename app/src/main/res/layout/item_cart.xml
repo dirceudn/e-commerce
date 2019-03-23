@@ -6,6 +6,7 @@
 
     <data>
         <variable name="data" type="com.google.android.commerce.data.model.BasketItem"/>
+        <variable name="listener" type="com.google.android.commerce.interfaces.BasketAdapterListener"/>
         <import type="java.lang.Integer"/>
     </data>
 
@@ -41,11 +42,15 @@
                 android:layout_marginTop="10dp" app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.725" app:layout_constraintStart_toEndOf="@+id/image_file"
                 android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.051"/>
-        <ImageView
+        <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/image_more"
+                android:background="@drawable/selector"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:onClick="@{() -> listener.removeBasketItem(data)}"
+
+                android:src="@drawable/ic_delete_black_24dp"
                 android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"

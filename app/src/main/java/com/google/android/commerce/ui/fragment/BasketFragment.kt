@@ -11,13 +11,16 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.commerce.R
 import com.google.android.commerce.adapters.BaskItemAdapter
+import com.google.android.commerce.data.model.BasketItem
+import com.google.android.commerce.interfaces.BasketAdapterListener
 import com.google.android.commerce.ui.view.BasketViewModel
 import kotlinx.android.synthetic.main.fragment_basket.*
 import java.text.NumberFormat
 import java.util.*
 
 
-class BasketFragment : Fragment() {
+class BasketFragment : Fragment(), BasketAdapterListener {
+
 
     lateinit var cartViewModel: BasketViewModel
     lateinit var cartAdapter: BaskItemAdapter
@@ -32,10 +35,9 @@ class BasketFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        cartAdapter = BaskItemAdapter()
+        cartAdapter = BaskItemAdapter(this)
         recycler_view_cart.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
         recycler_view_cart.adapter = cartAdapter
-
 
         attachData()
     }
@@ -49,12 +51,19 @@ class BasketFragment : Fragment() {
 
     private fun fetchItems() {
 
-        cartAdapter.setProductsList(cartViewModel.getProducts())
+        cartViewModel.fetchProducts()
 
-        val totalPrice = cartViewModel.getProducts()
-            .fold(0.toDouble()) { acc, cartItem -> acc + cartItem.quantity.times(cartItem.product.price!!.toDouble()) }
+        cartViewModel.products.observe(viewLifecycleOwner, androidx.lifecycle.Observer { values ->
+            cartAdapter.setProductsList(values)
+            val totalPrice = cartViewModel.totalPrice()
+            if (totalPrice != null) {
+                formatPrice(totalPrice)
 
-        formatPrice(totalPrice)
+            }
+        })
+
+
+
 
     }
 
@@ -72,9 +81,15 @@ class BasketFragment : Fragment() {
 
     }
 
-    private fun formatPrice(price: Double){
+    private fun formatPrice(price: Double) {
         val n = NumberFormat.getCurrencyInstance(Locale.FRANCE)
         val priceFormatted = n.format(price.div(100.0))
-        total_price.text =  priceFormatted
+        total_price.text = priceFormatted
+    }
+
+    override fun removeBasketItem(item: BasketItem) {
+        cartViewModel.removeItem(item)
+        cartViewModel.fetchProducts()
+
     }
 }

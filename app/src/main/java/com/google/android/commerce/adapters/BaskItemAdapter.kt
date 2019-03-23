@@ -8,10 +8,12 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.commerce.R
 import com.google.android.commerce.data.model.BasketItem
+import com.google.android.commerce.interfaces.BasketAdapterListener
 
-class BaskItemAdapter : RecyclerView.Adapter<BaskItemAdapter.BasketViewHolder>() {
+class BaskItemAdapter(listener: BasketAdapterListener) : RecyclerView.Adapter<BaskItemAdapter.BasketViewHolder>() {
 
     private var items: List<BasketItem>? = emptyList()
+    private var cartListener: BasketAdapterListener = listener
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaskItemAdapter.BasketViewHolder {
@@ -30,21 +32,22 @@ class BaskItemAdapter : RecyclerView.Adapter<BaskItemAdapter.BasketViewHolder>()
             0
     }
 
-    fun setProductsList(list: List<BasketItem>){
+    fun setProductsList(list: List<BasketItem>) {
         items = list
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: BaskItemAdapter.BasketViewHolder, position: Int) {
-        holder.bind(items!![position])
+        holder.bind(items!![position], cartListener)
 
     }
 
 
     class BasketViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: Any) {
+        fun bind(data: Any, cartListener: BasketAdapterListener) {
             binding.setVariable(BR.data, data)
+            binding.setVariable(BR.listener, cartListener)
             binding.executePendingBindings()
 
         }

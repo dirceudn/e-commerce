@@ -5,4 +5,5 @@ import com.google.android.commerce.data.model.Product
 interface ProductAdapterListener {
 
     fun onProductSelected(product: Product)
+
 }

@@ -13,8 +13,11 @@ class BasketViewModel : ViewModel() {
     @Inject
     lateinit var basketRepository: BasketRepository
     private var _cartListSize: MutableLiveData<Int> = MutableLiveData()
+    private var _totalPrice: MutableLiveData<Double> = MutableLiveData()
+    private var _basketItems: MutableLiveData<List<BasketItem>> = MutableLiveData()
 
-    val carsize: LiveData<Int> get() = _cartListSize
+    val cartsize: LiveData<Int> get() = _cartListSize
+    val products: LiveData<List<BasketItem>> get() = _basketItems
 
 
     init {
@@ -23,8 +26,9 @@ class BasketViewModel : ViewModel() {
 
     }
 
-    fun getProducts(): List<BasketItem> {
-        return basketRepository.getCart()
+    fun fetchProducts() {
+        _basketItems.postValue(basketRepository.getCart())
+        totalPrice()
     }
 
     fun fetchCarSize() {
@@ -36,6 +40,14 @@ class BasketViewModel : ViewModel() {
         basketRepository.addBasketItem(item)
         _cartListSize.postValue(basketRepository.getBasketSize())
 
+    }
+
+    fun removeItem(item: BasketItem) {
+        basketRepository.removeItem(item)
+    }
+
+    fun totalPrice(): Double? {
+        return products.value?.fold(0.toDouble()) { acc, cartItem -> acc + cartItem.quantity.times(cartItem.product.price!!.toDouble()) }
     }
 
 }
