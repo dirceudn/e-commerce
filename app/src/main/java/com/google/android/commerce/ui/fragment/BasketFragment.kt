@@ -1,5 +1,6 @@
 package com.google.android.commerce.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -22,6 +23,7 @@ import java.util.*
 class BasketFragment : Fragment(), BasketAdapterListener {
 
 
+
     lateinit var cartViewModel: BasketViewModel
     lateinit var cartAdapter: BaskItemAdapter
 
@@ -31,10 +33,9 @@ class BasketFragment : Fragment(), BasketAdapterListener {
 
     }
 
+    @SuppressLint("WrongConstant")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
-
         cartAdapter = BaskItemAdapter(this)
         recycler_view_cart.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
         recycler_view_cart.adapter = cartAdapter
@@ -62,24 +63,8 @@ class BasketFragment : Fragment(), BasketAdapterListener {
             }
         })
 
-
-
-
     }
 
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        return when (item.itemId) {
-            android.R.id.home -> {
-                activity!!.onBackPressed()
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
-
-    }
 
     private fun formatPrice(price: Double) {
         val n = NumberFormat.getCurrencyInstance(Locale.FRANCE)
@@ -89,7 +74,15 @@ class BasketFragment : Fragment(), BasketAdapterListener {
 
     override fun removeBasketItem(item: BasketItem) {
         cartViewModel.removeItem(item)
-        cartViewModel.fetchProducts()
+
+    }
+
+    override fun removeItemInc(item: BasketItem) {
+        cartViewModel.removeItemIncrement(item)
+    }
+
+    override fun addItemInc(item: BasketItem) {
+        cartViewModel.addCartItem(item)
 
     }
 }

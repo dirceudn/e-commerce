@@ -1,5 +1,7 @@
 package com.google.android.commerce.data.local.repository
 
+import android.content.Context
+import android.widget.Toast
 import com.google.android.commerce.data.model.BasketItem
 import io.paperdb.Paper
 import javax.inject.Inject
@@ -37,7 +39,7 @@ constructor(
 
         val cart = getCart()
         val targetItem = cart.singleOrNull { it.product.ref == cartItem.product.ref }
-        if(targetItem != null){
+        if (targetItem != null) {
             cart.remove(targetItem)
 
         }
@@ -51,6 +53,28 @@ constructor(
 
     private fun saveCart(cart: MutableList<BasketItem>) {
         Paper.book().write("cart", cart)
+    }
+
+    fun removeItemInc(cartItem: BasketItem) {
+
+        val cart = getCart()
+
+
+        val targetItem = cart.singleOrNull { it.product.ref == cartItem.product.ref }
+
+        if (targetItem != null) {
+
+            if (targetItem.quantity > 0) {
+
+                targetItem.quantity--
+            } else {
+                cart.remove(targetItem)
+            }
+
+        }
+
+        saveCart(cart)
+
     }
 }
 

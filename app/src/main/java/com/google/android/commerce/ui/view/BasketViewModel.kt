@@ -39,15 +39,24 @@ class BasketViewModel : ViewModel() {
     fun addCartItem(item: BasketItem) {
         basketRepository.addBasketItem(item)
         _cartListSize.postValue(basketRepository.getBasketSize())
+        _basketItems.postValue(basketRepository.getCart())
+
 
     }
 
     fun removeItem(item: BasketItem) {
         basketRepository.removeItem(item)
+        _basketItems.postValue(basketRepository.getCart())
+
     }
 
     fun totalPrice(): Double? {
         return products.value?.fold(0.toDouble()) { acc, cartItem -> acc + cartItem.quantity.times(cartItem.product.price!!.toDouble()) }
     }
 
+    fun removeItemIncrement(item: BasketItem) {
+        basketRepository.removeItemInc(item)
+        _basketItems.postValue(basketRepository.getCart())
+
+    }
 }
