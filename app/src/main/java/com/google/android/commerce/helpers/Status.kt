@@ -1,5 +1,4 @@
-package com.google.android.journal.data.model
-
+package com.google.android.commerce.helpers
 enum class Status {
     SUCCESS,
     ERROR,

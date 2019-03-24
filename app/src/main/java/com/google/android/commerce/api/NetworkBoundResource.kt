@@ -6,7 +6,7 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.android.commerce.AppExecutors
-import com.google.android.journal.data.model.Resource
+import com.google.android.commerce.helpers.Resource
 
 
  /**

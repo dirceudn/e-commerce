@@ -6,8 +6,8 @@ import com.google.android.commerce.api.NetworkBoundResource
 import com.google.android.commerce.data.db.ProductDao
 import com.google.android.commerce.data.model.Product
 import com.google.android.commerce.data.remote.ApiService
+import com.google.android.commerce.helpers.Resource
 import com.google.android.commerce.util.RateLimiter
-import com.google.android.journal.data.model.Resource
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton

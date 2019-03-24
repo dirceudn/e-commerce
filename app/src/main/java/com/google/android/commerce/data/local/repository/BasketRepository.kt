@@ -1,7 +1,5 @@
 package com.google.android.commerce.data.local.repository
 
-import android.content.Context
-import android.widget.Toast
 import com.google.android.commerce.data.model.BasketItem
 import io.paperdb.Paper
 import javax.inject.Inject
@@ -58,7 +56,6 @@ constructor(
     fun removeItemInc(cartItem: BasketItem) {
 
         val cart = getCart()
-
 
         val targetItem = cart.singleOrNull { it.product.ref == cartItem.product.ref }
 

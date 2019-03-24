@@ -1,4 +1,4 @@
-package com.google.android.journal.data.model;
+package com.google.android.commerce.helpers;
 
 /**
  * A generic class that holds a value with its loading status.

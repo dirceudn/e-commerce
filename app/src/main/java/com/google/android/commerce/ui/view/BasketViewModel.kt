@@ -13,7 +13,6 @@ class BasketViewModel : ViewModel() {
     @Inject
     lateinit var basketRepository: BasketRepository
     private var _cartListSize: MutableLiveData<Int> = MutableLiveData()
-    private var _totalPrice: MutableLiveData<Double> = MutableLiveData()
     private var _basketItems: MutableLiveData<List<BasketItem>> = MutableLiveData()
 
     val cartsize: LiveData<Int> get() = _cartListSize

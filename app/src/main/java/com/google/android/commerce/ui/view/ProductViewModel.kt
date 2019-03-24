@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.google.android.commerce.AppCommerce
 import com.google.android.commerce.data.local.repository.ProductRepository
 import com.google.android.commerce.data.model.Product
+import com.google.android.commerce.helpers.Status
 import com.google.android.commerce.util.SingleLiveEvent
-import com.google.android.journal.data.model.Status
 import javax.inject.Inject
 
 class ProductViewModel : ViewModel() {
